@@ -125,9 +125,22 @@ export default function Page() {
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     const handleTouchEnd = (e: TouchEvent) => {
+      const scrollable = (e.target as HTMLElement).closest('.overflow-y-auto');
       const touchEndY = e.changedTouches[0].screenY;
       const deltaY = touchStartY - touchEndY;
-      handleWheelTransition(deltaY);
+
+      // If releasing touch inside a scrollable area, verify we are actually at the boundary
+      if (scrollable && scrollable.scrollHeight > scrollable.clientHeight) {
+        const atTop = scrollable.scrollTop <= 0;
+        const atBottom = scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight - 2;
+        if (deltaY > 0 && !atBottom) return;
+        if (deltaY < 0 && !atTop) return;
+      }
+
+      // Require a minimum swipe distance of 40px on mobile to trigger a slide transition
+      if (Math.abs(deltaY) > 40) {
+        handleWheelTransition(deltaY);
+      }
     };
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
@@ -140,7 +153,9 @@ export default function Page() {
   }, []);
 
   const isDark = currentSlide === 3;
-  const mainWindowClass = `window-card-container relative overflow-hidden flex flex-col h-[780px] sm:h-[840px] lg:h-[860px] w-full transition-all duration-500 rounded-[32px] shadow-sm ${
+  
+  // Use 100dvh minus body padding (1.5rem * 2 = 3rem, lg: 2rem * 2 = 4rem) so it always fits perfectly on mobile without clipping
+  const mainWindowClass = `window-card-container relative overflow-hidden flex flex-col h-[calc(100dvh-3rem)] lg:h-[calc(100dvh-4rem)] max-h-[860px] w-full transition-all duration-500 rounded-[32px] shadow-sm ${
     isDark ? 'dark-theme-active' : ''
   }`;
   const mainWindowStyle = { backgroundColor: isDark ? '#161619' : '#ffffff' };

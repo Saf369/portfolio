@@ -125,12 +125,14 @@ body {
 
 @media (max-width: 640px) {
   .portrait-stage-large {
-    height: 380px;
-    transform: scale(1.15) translateY(-14px);
+    height: 260px;
+    transform: scale(1) translateX(40px) translateY(-60px);
+    transform-origin: bottom center;
   }
   .portrait-stage-compact {
-    height: 210px;
-    transform: scale(1) translateY(0);
+    height: 260px;
+    transform: scale(1) translateX(40px) translateY(-60px);
+    transform-origin: bottom center;
   }
 }
 
