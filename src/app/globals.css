@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-plus-jakarta-sans), sans-serif;
+  --font-display: var(--font-syne), sans-serif;
+
+  --color-brand-dark: #111113;
+  --color-brand-card: #18181b;
+  --color-brand-gray: #71717a;
+  --color-brand-light-gray: #f4f4f5;
+  --color-brand-border: #e4e4e7;
+
+  --shadow-window: 0 30px 60px -15px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.12);
+  --shadow-pill: 0 4px 14px 0 rgba(0, 0, 0, 0.05);
+  --shadow-glow-green: 0 0 15px rgba(34, 197, 94, 0.55);
+  --shadow-floating-ui: 0 20px 40px -10px rgba(0,0,0,0.25);
+}
+
+/* Clean, uniform neutral backdrop matching reference screenshot */
+body {
+  background-color: #d1d5db;
+  background: linear-gradient(180deg, #d2d6dc 0%, #cbd0d8 50%, #c4c9d2 100%);
+  min-height: 100vh;
+  color: #111113;
+  overflow: hidden;
+  padding: 1.5rem; /* p-6 */
+}
+
+@media (min-width: 640px) {
+  body {
+    padding: 1.5rem; /* sm:p-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding: 2rem; /* lg:p-8 */
+  }
+}
+
+/* Stroked Outline Font Effect for "SAFWAN" */
+.text-stroke-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px #111113;
+  text-stroke: 2px #111113;
+  transition: all 0.4s ease;
+}
+.text-stroke-outline:hover {
+  color: #111113;
+}
+@media (max-width: 768px) {
+  .text-stroke-outline {
+    -webkit-text-stroke: 1.5px #111113;
+  }
+}
+
+/* Outer Window Frame */
+.window-card-container {
+  border: 1px solid rgba(24, 24, 27, 0.6);
+  border-radius: 32px;
+  box-shadow: 0 30px 65px -12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  transition: background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.window-card-container.dark-theme-active {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Vertical stack transitions (bottom-to-top motion) */
+.slide-panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%) scale(0.97);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  z-index: 10;
+}
+.slide-panel.active-slide {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0%) scale(1);
+  z-index: 20;
+}
+.slide-panel.slide-above {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%) scale(0.97);
+  z-index: 10;
+}
+.slide-panel.slide-below {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%) scale(0.97);
+  z-index: 10;
+}
+
+/* Floating subtle float for Safwan's portrait */
+@keyframes floatSubtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.portrait-floating {
+  animation: floatSubtle 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Dynamic Portrait Size & Placement Stages */
+.portrait-stage-large {
+  height: 480px;
+  transform: scale(1.22) translateY(-24px);
+  z-index: 30;
+  transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.portrait-stage-compact {
+  height: 250px;
+  transform: scale(1) translateY(0);
+  z-index: 20;
+  transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 640px) {
+  .portrait-stage-large {
+    height: 380px;
+    transform: scale(1.15) translateY(-14px);
+  }
+  .portrait-stage-compact {
+    height: 210px;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Shimmer effects */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.28) 50%, transparent 80%);
+  transform: translateX(-100%);
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.btn-shimmer:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-shimmer-light {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 20%, rgba(0, 0, 0, 0.08) 50%, transparent 80%);
+  transform: translateX(-100%);
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.btn-shimmer-light:hover::before {
+  transform: translateX(100%);
+}
+
+/* Custom scrollbar hiding for slides */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Floating Card Tilt Animation */
+@keyframes floatPhonePreview {
+  0%, 100% { transform: rotate(5deg) translateY(0px); }
+  50% { transform: rotate(3.5deg) translateY(-5px); }
+}
+.floating-mockup-animate {
+  animation: floatPhonePreview 5s ease-in-out infinite;
+}
