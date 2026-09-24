@@ -93,7 +93,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
       >
         <a
           className="btn-shimmer inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#111113] hover:bg-black text-white text-sm sm:text-base font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 group"
-          href="mailto:safwan.muhammed@example.com"
+          href="mailto:safmu2090@gmail.com"
         >
           <span className="">Contact Me</span>
           <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
@@ -104,13 +104,13 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
 
       {/* Bottom Profile / Identity Row */}
       <motion.div 
-        variants={footerContainer}
+        variants={footerContainer as any}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         className="relative z-10 mt-10 pt-6 border-t border-gray-100 w-full flex flex-wrap items-center justify-center gap-2.5 sm:gap-3"
       >
-        <motion.div variants={footerItem} className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111113] text-white text-xs sm:text-sm font-medium shadow-sm cursor-default">
+        <motion.div variants={footerItem as any} className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111113] text-white text-xs sm:text-sm font-medium shadow-sm cursor-default">
           <img
             alt="Safwan"
             className="w-5 h-5 rounded-full object-cover grayscale ring-1 ring-white/30"
@@ -119,40 +119,22 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
           <span className="">Safwan Muhammed</span>
         </motion.div>
         <motion.a
-          variants={footerItem}
+          variants={footerItem as any}
           className="btn-shimmer-light flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-xs sm:text-sm font-medium text-gray-800 transition-all duration-300"
-          href="https://dribbble.com"
-          target="_blank"
-        >
-          <i className="fa-brands fa-dribbble text-pink-600"></i>
-          <span className="">Dribbble</span>
-        </motion.a>
-        <motion.a
-          variants={footerItem}
-          className="btn-shimmer-light flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-xs sm:text-sm font-medium text-gray-800 transition-all duration-300"
-          href="https://instagram.com"
-          target="_blank"
-        >
-          <i className="fa-brands fa-instagram text-pink-500"></i>
-          <span className="">Instagram</span>
-        </motion.a>
-        <motion.a
-          variants={footerItem}
-          className="btn-shimmer-light flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-xs sm:text-sm font-medium text-gray-800 transition-all duration-300"
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/safmu"
           target="_blank"
         >
           <i className="fa-brands fa-linkedin-in text-blue-600"></i>
           <span className="">LinkedIn</span>
         </motion.a>
         <motion.a
-          variants={footerItem}
+          variants={footerItem as any}
           className="btn-shimmer-light flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-xs sm:text-sm font-medium text-gray-800 transition-all duration-300"
-          href="https://behance.net"
+          href="https://github.com/Saf369"
           target="_blank"
         >
-          <i className="fa-brands fa-behance text-blue-500"></i>
-          <span className="">Behance</span>
+          <i className="fa-brands fa-github text-gray-800"></i>
+          <span className="">GitHub</span>
         </motion.a>
       </motion.div>
     </div>

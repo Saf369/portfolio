@@ -73,10 +73,10 @@ export default function HomeSlide({
           transition={{ duration: 0.45, delay: 0.8, ease: "linear" }}
           className="w-full md:w-1/3 text-center md:text-left mb-6 md:mb-10 z-20 transition-opacity duration-500 order-2 md:order-1 mt-6 md:mt-0">
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#111113]">
-            UI/UX Designer
+            Software Engineer
           </h2>
           <p className="text-gray-500 text-sm sm:text-[15px] leading-relaxed mt-2 max-w-[280px] mx-auto md:mx-0">
-            Designing digital products that are clear, usable, and conversion focused.
+            Building production-ready full-stack, AI, and autonomous systems.
           </p>
           <button
             className="btn-shimmer mt-5 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#111113] hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-xl group"
@@ -130,27 +130,7 @@ export default function HomeSlide({
           <motion.a
             variants={socialItem as any}
             className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
-            href="https://dribbble.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <i className="fa-brands fa-dribbble text-pink-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
-            <span className="">Dribbble</span>
-          </motion.a>
-          <motion.a
-            variants={socialItem}
-            className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
-            href="https://instagram.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <i className="fa-brands fa-instagram text-pink-500 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
-            <span className="">Instagram</span>
-          </motion.a>
-          <motion.a
-            variants={socialItem}
-            className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/safmu"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -158,14 +138,14 @@ export default function HomeSlide({
             <span className="">LinkedIn</span>
           </motion.a>
           <motion.a
-            variants={socialItem}
+            variants={socialItem as any}
             className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
-            href="https://behance.net"
+            href="https://github.com/Saf369"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <i className="fa-brands fa-behance text-blue-500 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
-            <span className="">Behance</span>
+            <i className="fa-brands fa-github text-gray-800 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
+            <span className="">GitHub</span>
           </motion.a>
         </motion.div>
       </div>

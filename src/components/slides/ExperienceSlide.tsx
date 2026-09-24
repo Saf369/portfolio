@@ -166,23 +166,22 @@ export default function ExperienceSlide({ isActive, isAbove, isBelow }: Experien
             transition={{ duration: 0.45, ease: "linear", delay: 0.1 }}
             className="text-sm sm:text-base font-light text-gray-300 pb-1"
           >
-            9+ years of experience
+            B.Tech IT '28
           </motion.span>
         </div>
 
         {/* Experience Rows List */}
         <motion.div 
-          variants={listContainer}
+          variants={listContainer as any}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           className="relative z-10 flex flex-col space-y-0"
         >
-          <Row company="Kumpin Studio" role="UI/UX & Product Designer" date="Nov 2025 - Now" delayIndex={0} hasMockup={true} />
-          <Row company="Mikan Team" role="Creative Director" date="Aug 2025 - Now" delayIndex={1} hasMockup={true} />
-          <Row company="Microsoft" role="Interaction Designer" date="Jan 2022 - Aug 2025" delayIndex={2} />
-          <Row company="Facebook" role="Visual Designer" date="Mar 2019 - Dec 2021" delayIndex={3} />
-          <Row company="Apple" role="Experience Designer" date="Feb 2017 - Feb 2019" delayIndex={4} />
+          <Row company="Cognifyr.co" role="Intern" date="2026 - Present" delayIndex={0} hasMockup={true} />
+          <Row company="Jyesta Corporate" role="Machine Learning Intern" date="2 months" delayIndex={1} hasMockup={true} />
+          <Row company="Freelance" role="Full-Stack Developer" date="2026 - Present" delayIndex={2} />
+          <Row company="IEEE CUSAT Student Branch" role="Web Associate" date="2026 - Present" delayIndex={3} />
         </motion.div>
       </div>
     </div>

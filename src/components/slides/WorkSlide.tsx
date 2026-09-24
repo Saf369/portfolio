@@ -84,91 +84,36 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
         viewport={{ once: true }}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pb-4"
       >
-        {/* Project Card 1: BloomCare */}
-        <motion.article variants={cardVariants} className="group cursor-pointer">
+        {/* Project Card 1: XI Predictor */}
+        <motion.article variants={cardVariants as any} className="group cursor-pointer">
           <div className="relative bg-zinc-950 rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
             <div className="relative w-[86%] h-[84%] bg-gradient-to-b from-neutral-900 via-neutral-950 to-black rounded-xl p-4 border border-zinc-800 flex flex-col items-center justify-between text-center overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
               <div className="flex justify-between w-full text-[11px] text-zinc-400 items-center">
                 <span className="font-bold text-white flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>BloomCare
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>XI PREDICTOR
                 </span>
-                <span className="px-2.5 py-0.5 bg-pink-600/20 text-pink-400 rounded-full text-[10px] font-semibold border border-pink-500/30">
-                  DOWNLOAD APP
+                <span className="px-2.5 py-0.5 bg-blue-600/20 text-blue-400 rounded-full text-[10px] font-semibold border border-blue-500/30">
+                  LIVE AT SAF.NET.IN
                 </span>
               </div>
               <div className="my-auto space-y-1 sm:space-y-2">
-                <span className="text-[9px] uppercase tracking-wider text-pink-400 font-semibold">
-                  #1 Mental Health Companion
+                <span className="text-[9px] uppercase tracking-wider text-blue-400 font-semibold">
+                  FIFA World Cup 2026
                 </span>
                 <h4 className="text-white text-sm sm:text-lg font-bold max-w-[240px] leading-tight">
-                  Emotional Engine for{' '}
-                  <span className="text-pink-400 transition-colors group-hover:text-pink-300">
-                    Your Personal Growth
+                  AI-Powered Predictions{' '}
+                  <span className="text-blue-400 transition-colors group-hover:text-blue-300">
+                    using Anthropic Claude
                   </span>
                 </h4>
               </div>
-              <div className="w-32 sm:w-36 h-20 sm:h-24 bg-gradient-to-t from-pink-500/20 via-purple-600/30 to-transparent rounded-t-2xl border-t border-x border-pink-500/40 relative shadow-2xl flex items-center justify-center">
+              <div className="w-32 sm:w-36 h-20 sm:h-24 bg-gradient-to-t from-blue-500/20 via-indigo-600/30 to-transparent rounded-t-2xl border-t border-x border-blue-500/40 relative shadow-2xl flex items-center justify-center">
                 <div className="w-14 h-1 bg-white/40 rounded-full mb-auto mt-2"></div>
               </div>
             </div>
-            <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-              <span className="w-11 h-11 bg-white text-black rounded-full flex items-center justify-center font-bold shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                ↗
-              </span>
-            </div>
-          </div>
-          <div className="mt-3">
-            <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-black flex items-center justify-between transition-colors">
-              <span className="">BloomCare - Mental Health App Landing</span>
-              <span className="text-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
-                ↗
-              </span>
-            </h3>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600 font-medium">
-                Landing Page
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600 font-medium">
-                Kumpin Studio
-              </span>
-            </div>
-          </div>
-        </motion.article>
-        {/* Project Card 2: FragWater */}
-        <motion.article variants={cardVariants} className="group cursor-pointer">
-          <div className="relative bg-zinc-900 rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
-            <div className="relative w-[88%] h-[84%] bg-neutral-900 rounded-lg p-4 border border-neutral-700 flex flex-col justify-between overflow-hidden shadow-inner transition-transform duration-500 ease-out group-hover:scale-105">
-              <div className="flex justify-between items-center text-xs text-neutral-400 border-b border-neutral-800 pb-1.5">
-                <span className="font-serif tracking-widest text-white text-xs uppercase font-medium">
-                  FragWater
-                </span>
-                <div className="flex gap-2 text-[10px]">
-                  <span className="hover:text-white transition-colors">Search</span>
-                  <span className="hover:text-white transition-colors">Bag (0)</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3 items-center my-auto">
-                <div className="text-left space-y-1">
-                  <span className="text-[9px] uppercase tracking-wider text-amber-300 font-semibold">
-                    Velxir Parfums
-                  </span>
-                  <h5 className="text-white text-xs sm:text-sm font-light uppercase tracking-wider">
-                    Premium Unisex Fragrance
-                  </h5>
-                </div>
-                <div className="flex justify-center">
-                  <div className="w-16 sm:w-20 h-22 sm:h-26 bg-gradient-to-b from-amber-600/40 to-neutral-900 rounded-md border border-amber-500/30 flex items-center justify-center text-amber-200 text-[10px] font-serif shadow-lg">
-                    VELXIR
-                  </div>
-                </div>
-              </div>
-              <p className="text-[9px] text-neutral-500 italic text-center">
-                Where Scent Becomes Identity.
-              </p>
-            </div>
             <span className="absolute top-3 left-3 px-2.5 py-0.5 bg-white/95 backdrop-blur-md rounded-full text-[10px] font-bold tracking-wider text-black uppercase shadow-sm flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              REAL PROJECT
+              PRODUCTION
             </span>
             <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
               <span className="w-11 h-11 bg-white text-black rounded-full flex items-center justify-center font-bold shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
@@ -178,17 +123,76 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
           </div>
           <div className="mt-3">
             <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-black flex items-center justify-between transition-colors">
-              <span className="">FragWater - Luxury Fragrance Landing</span>
+              <span className="">XI - AI Prediction Platform</span>
               <span className="text-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
                 ↗
               </span>
             </h3>
             <div className="flex items-center gap-2 mt-2">
               <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600 font-medium">
-                Landing Page
+                Next.js 15
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600 font-medium">
-                Kumpin Studio
+                Supabase & Redis
+              </span>
+            </div>
+          </div>
+        </motion.article>
+        {/* Project Card 2: A2RL Drone */}
+        <motion.article variants={cardVariants as any} className="group cursor-pointer">
+          <div className="relative bg-zinc-900 rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
+            <div className="relative w-[88%] h-[84%] bg-neutral-900 rounded-lg p-4 border border-neutral-700 flex flex-col justify-between overflow-hidden shadow-inner transition-transform duration-500 ease-out group-hover:scale-105">
+              <div className="flex justify-between items-center text-xs text-neutral-400 border-b border-neutral-800 pb-1.5">
+                <span className="font-mono tracking-widest text-white text-xs uppercase font-medium">
+                  A2RL / ROS2
+                </span>
+                <div className="flex gap-2 text-[10px]">
+                  <span className="hover:text-white transition-colors">C++</span>
+                  <span className="hover:text-white transition-colors">Gazebo</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 items-center my-auto">
+                <div className="text-left space-y-1">
+                  <span className="text-[9px] uppercase tracking-wider text-emerald-400 font-semibold">
+                    Autonomous Drone Racing
+                  </span>
+                  <h5 className="text-white text-xs sm:text-sm font-light uppercase tracking-wider">
+                    Planning Pipeline
+                  </h5>
+                </div>
+                <div className="flex justify-center">
+                  <div className="w-16 sm:w-20 h-22 sm:h-26 bg-gradient-to-b from-emerald-600/40 to-neutral-900 rounded-md border border-emerald-500/30 flex items-center justify-center text-emerald-200 text-[10px] font-mono shadow-lg text-center p-2">
+                    LINEAR MPC
+                  </div>
+                </div>
+              </div>
+              <p className="text-[9px] text-neutral-500 italic text-center">
+                Uncertainty-aware Vision-only Planning.
+              </p>
+            </div>
+            <span className="absolute top-3 left-3 px-2.5 py-0.5 bg-white/95 backdrop-blur-md rounded-full text-[10px] font-bold tracking-wider text-black uppercase shadow-sm flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              ROBOTICS TEAM
+            </span>
+            <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+              <span className="w-11 h-11 bg-white text-black rounded-full flex items-center justify-center font-bold shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                ↗
+              </span>
+            </div>
+          </div>
+          <div className="mt-3">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-black flex items-center justify-between transition-colors">
+              <span className="">A2RL Autonomous Drone Racing</span>
+              <span className="text-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
+                ↗
+              </span>
+            </h3>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600 font-medium">
+                ROS 2 & C++
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600 font-medium">
+                Motion Planning
               </span>
             </div>
           </div>
