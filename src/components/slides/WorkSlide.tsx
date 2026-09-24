@@ -13,7 +13,7 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
     isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
   }`;
 
-  const gridContainer = {
+  const gridContainer: any = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -21,7 +21,7 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
     }
   };
 
-  const cardVariants = {
+  const cardVariants: any = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { duration: 0.45, ease: "linear" } }
   };

@@ -12,7 +12,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
     isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
   }`;
 
-  const footerContainer = {
+  const footerContainer: any = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -20,7 +20,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
     }
   };
 
-  const footerItem = {
+  const footerItem: any = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { duration: 0.45, ease: "linear" } }
   };

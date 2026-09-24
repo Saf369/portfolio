@@ -16,7 +16,9 @@ const Row = ({ company, role, date, delayIndex, hasMockup = false }: any) => {
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  const [randomRot] = useState(() => (Math.random() * 4) - 2);
+  // Use a stable rotation based on delayIndex instead of Math.random() to prevent SSR hydration mismatches
+  const stableRotations = [-1.5, 2, -0.5, 1.2, -1.8, 0.5, -2, 1.5];
+  const randomRot = stableRotations[delayIndex % stableRotations.length];
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!hasMockup) return;
