@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface HomeSlideProps {
   isActive: boolean;
@@ -17,18 +18,29 @@ export default function HomeSlide({
   toggleHeroState,
   goToSlide,
 }: HomeSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-between px-6 sm:px-12 pt-4 sm:pt-6 pb-8 overflow-hidden ${
-    isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
-  }`;
+  const containerClass = `slide-panel flex flex-col justify-between px-6 sm:px-12 pt-4 sm:pt-6 pb-8 overflow-hidden ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
+    }`;
 
   const heroStyle = {
     opacity: heroStage === 0 ? '0.9' : '1',
     transform: heroStage === 0 ? 'scale(1)' : 'scale(1.02)',
   };
 
-  const portraitClass = `portrait-container relative w-full max-w-md flex justify-center -mb-2 mt-0 z-30 group cursor-pointer overflow-hidden ${
-    heroStage === 0 ? 'portrait-stage-large' : 'portrait-stage-compact'
-  }`;
+  const portraitClass = `portrait-container relative w-full max-w-md flex justify-center -mb-2 mt-0 z-30 group cursor-pointer overflow-hidden ${heroStage === 0 ? 'portrait-stage-large' : 'portrait-stage-compact'
+    }`;
+
+  const socialContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.04, delayChildren: 0.95 }
+    }
+  };
+
+  const socialItem = {
+    hidden: { opacity: 0, y: 5 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+  };
 
   return (
     <div className={containerClass} id="slide-0" style={{ zIndex: isActive ? 20 : 10 }}>
@@ -38,19 +50,28 @@ export default function HomeSlide({
         id="hero-typography-container"
         style={heroStyle}
       >
-        <h1 className="text-[12.5vw] sm:text-[10vw] lg:text-[145px] font-black tracking-tight leading-[0.85] uppercase flex flex-col items-center justify-center font-sans">
+        <motion.h1
+          initial={{ opacity: 0, fontWeight: 200 }}
+          animate={{ opacity: [0, 0.08, 0.08, 1], fontWeight: [200, 200, 200, 800] }}
+          transition={{ duration: 0.7, times: [0, 0.1, 0.42, 1], ease: [0.16, 1, 0.3, 1] }}
+          className="text-[12.5vw] sm:text-[10vw] lg:text-[145px] tracking-tight leading-[0.85] uppercase flex flex-col items-center justify-center font-sans">
           <span className="text-stroke-outline pointer-events-auto transition-transform hover:scale-[1.01] inline-block duration-300">
             SAFWAN
           </span>
           <span className="text-[#111113] inline-block transition-transform hover:scale-[1.01] duration-300 pointer-events-auto">
             MUHAMMED
           </span>
-        </h1>
+        </motion.h1>
       </div>
+
       {/* Hero Bottom Content Grid with Dynamic Cutout Portrait Center */}
       <div className="relative w-full flex flex-col md:flex-row items-center md:items-end justify-between mt-auto z-20 pt-2 pb-2">
         {/* Left: UI/UX Designer & Action */}
-        <div className="w-full md:w-1/3 text-left mb-6 md:mb-10 z-20 transition-opacity duration-500">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.8 }}
+          className="w-full md:w-1/3 text-left mb-6 md:mb-10 z-20 transition-opacity duration-500">
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#111113]">
             UI/UX Designer
           </h2>
@@ -66,7 +87,8 @@ export default function HomeSlide({
               ↗
             </span>
           </button>
-        </div>
+        </motion.div>
+
         {/* Center Portrait with Hero Zoom / Minimizing Stage Interaction */}
         <div
           className={portraitClass}
@@ -88,7 +110,10 @@ export default function HomeSlide({
           }}
         >
           <div className="absolute inset-x-4 bottom-0 h-48 bg-gradient-to-t from-gray-200/70 to-transparent rounded-full blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          <img
+          <motion.img
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 1.1 }}
             alt="Safwan Muhammed Portrait"
             className="portrait-floating relative w-auto max-w-full object-cover object-top h-[460px] sm:h-[510px] lg:h-[540px] contrast-125 brightness-95 filter grayscale transition-all duration-700 ease-out"
             id="hero-portrait-img"
@@ -98,14 +123,18 @@ export default function HomeSlide({
               transformOrigin: 'center bottom 0px',
               filter: 'grayscale(100%) contrast(1.1)',
               maskImage: 'linear-gradient(black 0%, black 85%, transparent 100%)',
-              transform: 'scale(1.12)',
-              height: '560px',
             }}
           />
         </div>
+
         {/* Right: Social Links */}
-        <div className="w-full md:w-1/3 flex flex-row md:flex-col items-center md:items-end justify-center md:justify-end gap-2.5 mb-6 md:mb-10 z-20 flex-wrap">
-          <a
+        <motion.div
+          variants={socialContainer}
+          initial="hidden"
+          animate="show"
+          className="w-full md:w-1/3 flex flex-row md:flex-col items-center md:items-end justify-center md:justify-end gap-2.5 mb-6 md:mb-10 z-20 flex-wrap">
+          <motion.a
+            variants={socialItem}
             className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
             href="https://dribbble.com"
             rel="noopener noreferrer"
@@ -113,8 +142,9 @@ export default function HomeSlide({
           >
             <i className="fa-brands fa-dribbble text-pink-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
             <span className="">Dribbble</span>
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            variants={socialItem}
             className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
             href="https://instagram.com"
             rel="noopener noreferrer"
@@ -122,8 +152,9 @@ export default function HomeSlide({
           >
             <i className="fa-brands fa-instagram text-pink-500 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
             <span className="">Instagram</span>
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            variants={socialItem}
             className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
             href="https://linkedin.com"
             rel="noopener noreferrer"
@@ -131,8 +162,9 @@ export default function HomeSlide({
           >
             <i className="fa-brands fa-linkedin-in text-blue-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"></i>
             <span className="">LinkedIn</span>
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            variants={socialItem}
             className="btn-shimmer-light flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white/95 hover:bg-gray-50 shadow-sm hover:shadow text-xs sm:text-sm font-medium text-gray-800 hover:border-black transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
             href="https://behance.net"
             rel="noopener noreferrer"
@@ -140,8 +172,8 @@ export default function HomeSlide({
           >
             <i className="fa-brands fa-behance text-blue-500 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"></i>
             <span className="">Behance</span>
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </div>
     </div>
   );

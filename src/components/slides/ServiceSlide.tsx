@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface ServiceSlideProps {
   isActive: boolean;
@@ -12,18 +13,56 @@ export default function ServiceSlide({ isActive, isAbove, isBelow, goToSlide }: 
     isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
   }`;
 
+  const listContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.20, delayChildren: 0.2 } // 200ms stagger between rows
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.45, ease: "linear" } }
+  };
+
+  const lineVariants = {
+    hidden: { scaleX: 0 },
+    show: { scaleX: 1, transition: { duration: 0.3, delay: 0.2 } }
+  };
+
   return (
     <div className={containerClass} id="slide-2" style={{ zIndex: isActive ? 20 : 10 }}>
       {/* Section Title */}
-      <div className="mb-10">
-        <h2 className="text-4xl lg:text-[42px] font-medium tracking-tight text-[#111113]">
+      <div className="mb-10 relative">
+        {/* Oversized Ghost Heading (Static Layer) */}
+        <div className="absolute -left-4 -top-8 select-none pointer-events-none z-0">
+          <span className="text-6xl sm:text-7xl lg:text-[110px] font-black tracking-tight text-black/[0.04] uppercase leading-none font-display">
+            SERVICE
+          </span>
+        </div>
+
+        <motion.h2 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, ease: "linear" }}
+          className="text-4xl lg:text-[42px] font-medium tracking-tight text-[#111113] relative z-10"
+        >
           /SERVICE
-        </h2>
+        </motion.h2>
       </div>
+
       {/* Services List */}
-      <div className="space-y-0 relative">
+      <motion.div 
+        variants={listContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="space-y-0 relative"
+      >
         {/* Service 1: UIUX DESIGN (Highlighted expanded view) */}
-        <div className="service-card relative bg-[#222222] text-white rounded-[6px] p-8 sm:p-10 flex flex-col md:flex-row justify-between items-center gap-6 overflow-visible shadow-2xl transition-all duration-300 group z-20 mb-2">
+        <motion.div variants={itemVariants} className="service-card relative bg-[#222222] text-white rounded-[6px] p-8 sm:p-10 flex flex-col md:flex-row justify-between items-center gap-6 overflow-visible shadow-2xl transition-all duration-300 group z-20 mb-2">
           <div className="max-w-sm z-10 w-full md:w-auto">
             <h3 className="text-3xl sm:text-4xl lg:text-[44px] font-normal tracking-wide mt-1">UIUX DESIGN</h3>
             <p className="text-gray-400 text-[15px] mt-4 leading-relaxed font-light">
@@ -90,47 +129,59 @@ export default function ServiceSlide({ isActive, isAbove, isBelow, goToSlide }: 
                <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="1" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </div>
-        </div>
+        </motion.div>
         
         {/* Service 2: WEB DESIGN & DEV */}
-        <div
-          className="group relative flex items-center justify-between py-6 px-1 border-b border-gray-300/40 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white hover:border-transparent transition-all duration-300 z-10 rounded-sm"
-          onClick={() => goToSlide(4)}
-        >
-          <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
-            WEB DESIGN &amp; DEV
-          </span>
-          <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            ↗
-          </span>
-        </div>
+        <motion.div variants={itemVariants} className="relative z-10">
+          <div
+            className="group relative flex items-center justify-between py-6 px-1 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white transition-all duration-300 rounded-sm"
+            onClick={() => goToSlide(4)}
+          >
+            <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
+              WEB DESIGN &amp; DEV
+            </span>
+            <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+              ↗
+            </span>
+          </div>
+          {/* Animated Divider */}
+          <motion.div variants={lineVariants} style={{ originX: 0 }} className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300/60 pointer-events-none" />
+        </motion.div>
         
         {/* Service 3: BRANDING */}
-        <div
-          className="group relative flex items-center justify-between py-6 px-1 border-b border-gray-300/40 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white hover:border-transparent transition-all duration-300 z-10 rounded-sm"
-          onClick={() => goToSlide(4)}
-        >
-          <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
-            BRANDING
-          </span>
-          <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            ↗
-          </span>
-        </div>
+        <motion.div variants={itemVariants} className="relative z-10">
+          <div
+            className="group relative flex items-center justify-between py-6 px-1 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white transition-all duration-300 rounded-sm"
+            onClick={() => goToSlide(4)}
+          >
+            <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
+              BRANDING
+            </span>
+            <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+              ↗
+            </span>
+          </div>
+          {/* Animated Divider */}
+          <motion.div variants={lineVariants} style={{ originX: 0 }} className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300/60 pointer-events-none" />
+        </motion.div>
         
         {/* Service 4: MOTIONS & ANIMATIONS */}
-        <div
-          className="group relative flex items-center justify-between py-6 px-1 border-b border-gray-300/40 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white hover:border-transparent transition-all duration-300 z-10 rounded-sm"
-          onClick={() => goToSlide(4)}
-        >
-          <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
-            MOTIONS &amp; ANIMATIONS
-          </span>
-          <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            ↗
-          </span>
-        </div>
-      </div>
+        <motion.div variants={itemVariants} className="relative z-10">
+          <div
+            className="group relative flex items-center justify-between py-6 px-1 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white transition-all duration-300 rounded-sm"
+            onClick={() => goToSlide(4)}
+          >
+            <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
+              MOTIONS &amp; ANIMATIONS
+            </span>
+            <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+              ↗
+            </span>
+          </div>
+          {/* Animated Divider */}
+          <motion.div variants={lineVariants} style={{ originX: 0 }} className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300/60 pointer-events-none" />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

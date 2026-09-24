@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface WorkSlideProps {
   isActive: boolean;
@@ -12,19 +13,46 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
     isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
   }`;
 
+  const gridContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.07, delayChildren: 0.2 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.45, ease: "linear" } }
+  };
+
   return (
     <div className={containerClass} id="slide-1" style={{ zIndex: isActive ? 20 : 10 }}>
       {/* Section Header with Watermark */}
       <div className="relative text-left mb-6 sm:mb-8 pt-2">
+        {/* Static Ghost Layer */}
         <span className="absolute left-0 -top-4 sm:-top-8 text-5xl sm:text-7xl lg:text-8xl font-black text-gray-100/90 tracking-widest select-none pointer-events-none uppercase">
           PORTFOLIO
         </span>
-        <h2 className="relative text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#111113]">
+        <motion.h2 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, ease: "linear" }}
+          className="relative text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#111113]"
+        >
           /SELECTED WORK
-        </h2>
+        </motion.h2>
       </div>
+      
       {/* Filters & View All CTA */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 pb-3 border-b border-gray-200">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: "linear", delay: 0.1 }}
+        className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 pb-3 border-b border-gray-200"
+      >
         <div
           className="flex items-center gap-2 text-xs sm:text-sm font-semibold p-1 bg-gray-100 rounded-full border border-gray-200"
           id="portfolio-filters"
@@ -46,11 +74,18 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
           <span className="">Explore Services</span>
           <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
         </button>
-      </div>
+      </motion.div>
+      
       {/* Portfolio 2-Card Grid matching SCREEN_2 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pb-4">
+      <motion.div 
+        variants={gridContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pb-4"
+      >
         {/* Project Card 1: BloomCare */}
-        <article className="group cursor-pointer">
+        <motion.article variants={cardVariants} className="group cursor-pointer">
           <div className="relative bg-zinc-950 rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
             <div className="relative w-[86%] h-[84%] bg-gradient-to-b from-neutral-900 via-neutral-950 to-black rounded-xl p-4 border border-zinc-800 flex flex-col items-center justify-between text-center overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
               <div className="flex justify-between w-full text-[11px] text-zinc-400 items-center">
@@ -98,9 +133,9 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
               </span>
             </div>
           </div>
-        </article>
+        </motion.article>
         {/* Project Card 2: FragWater */}
-        <article className="group cursor-pointer">
+        <motion.article variants={cardVariants} className="group cursor-pointer">
           <div className="relative bg-zinc-900 rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
             <div className="relative w-[88%] h-[84%] bg-neutral-900 rounded-lg p-4 border border-neutral-700 flex flex-col justify-between overflow-hidden shadow-inner transition-transform duration-500 ease-out group-hover:scale-105">
               <div className="flex justify-between items-center text-xs text-neutral-400 border-b border-neutral-800 pb-1.5">
@@ -157,8 +192,8 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
               </span>
             </div>
           </div>
-        </article>
-      </div>
+        </motion.article>
+      </motion.div>
     </div>
   );
 }
