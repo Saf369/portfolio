@@ -16,26 +16,50 @@
   --shadow-floating-ui: 0 20px 40px -10px rgba(0,0,0,0.25);
 }
 
-/* Clean, uniform neutral backdrop matching reference screenshot */
+/* Base document styling */
+html,
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: #111113;
+}
+
 body {
   background-color: #d1d5db;
   background: linear-gradient(180deg, #d2d6dc 0%, #cbd0d8 50%, #c4c9d2 100%);
-  min-height: 100vh;
-  color: #111113;
-  overflow: hidden;
-  padding: 1.5rem; /* p-6 */
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+}
+
+/* Home Slide Deck Mode - single-screen locked presentation */
+html.home-slider-mode,
+body.home-slider-mode {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
 }
 
 @media (min-width: 640px) {
-  body {
+  body.home-slider-mode {
     padding: 1.5rem; /* sm:p-6 */
   }
 }
 
 @media (min-width: 1024px) {
-  body {
+  body.home-slider-mode {
     padding: 2rem; /* lg:p-8 */
   }
+}
+
+/* Works Archive Page - full fluid scroll */
+html.works-page-mode,
+body.works-page-mode {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  min-height: 100% !important;
+  padding: 0 !important;
 }
 
 /* Stroked Outline Font Effect for "SAFWAN" */
@@ -62,9 +86,23 @@ body {
   background: #ffffff;
   transition: background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
+@media (max-width: 639px) {
+  .window-card-container {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
 .window-card-container.dark-theme-active {
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+@media (max-width: 639px) {
+  .window-card-container.dark-theme-active {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 /* Vertical stack transitions (bottom-to-top motion) */
@@ -99,40 +137,31 @@ body {
   z-index: 10;
 }
 
-/* Floating subtle float for Safwan's portrait */
-@keyframes floatSubtle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
+/* Static portrait (no floating motion) */
 .portrait-floating {
-  animation: floatSubtle 6s ease-in-out infinite;
+  animation: none !important;
   transform-origin: bottom center;
 }
 
-/* Dynamic Portrait Size & Placement Stages */
-.portrait-stage-large {
-  height: 480px;
-  transform: scale(1.22) translateY(-24px);
-  z-index: 30;
-  transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Static Portrait Size & Placement on Desktop */
+.portrait-stage-large,
 .portrait-stage-compact {
-  height: 250px;
-  transform: scale(1) translateY(0);
-  z-index: 20;
-  transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 410px;
+  transform: scale(1.0) translateY(-10px);
+  z-index: 30;
+  transition: none;
 }
 
 @media (max-width: 640px) {
-  .portrait-stage-large {
-    height: 260px;
-    transform: scale(1) translateX(40px) translateY(-60px);
-    transform-origin: bottom center;
-  }
+  .portrait-stage-large,
   .portrait-stage-compact {
-    height: 260px;
-    transform: scale(1) translateX(40px) translateY(-60px);
-    transform-origin: bottom center;
+    height: 370px !important;
+    transform: scale(1.04) translateX(-10px) translateY(-28px) !important;
+    transform-origin: bottom center !important;
+    transition: none !important;
+  }
+  .portrait-floating {
+    animation: none !important;
   }
 }
 

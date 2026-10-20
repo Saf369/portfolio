@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
   currentSlide: number;
@@ -8,6 +9,8 @@ interface HeaderProps {
 }
 
 export default function Header({ currentSlide, goToSlide, goToHomeState }: HeaderProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const getTabClass = (index: number) => {
     return currentSlide === index
       ? "nav-tab-btn relative px-3 py-1 font-semibold transition-colors duration-300 text-black"
@@ -24,7 +27,7 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
   const staggerStep = 0.06;
 
   return (
-    <header className="relative z-40 w-full flex items-center justify-between px-6 sm:px-10 py-4 sm:py-5 border-b backdrop-blur-md transition-colors duration-500 rounded-t-[32px] bg-white/90 border-zinc-200/80" id="static-header">
+    <header className="relative z-40 w-full flex items-center justify-between px-4 sm:px-10 py-3.5 sm:py-5 border-b backdrop-blur-md transition-colors duration-500 rounded-none sm:rounded-t-[32px] bg-white/90 border-zinc-200/80" id="static-header">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -35,8 +38,11 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span className="">Available for New Project</span>
+        <span className="hidden xs:inline sm:inline">Available for New Project</span>
+        <span className="xs:hidden sm:hidden">Available</span>
       </motion.div>
+
+      {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium">
         <motion.button
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 1, ease: "linear" }}
@@ -47,19 +53,19 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
         <motion.button
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 2, ease: "linear" }}
           className={getTabClass(1)} onClick={() => goToSlide(1)}>
-          <span className="">Work <sup className="text-[10px] text-gray-400 font-mono">[40]</sup></span>
+          <span className="">Work <sup className="text-[10px] text-gray-400 font-mono">[13]</sup></span>
           <span className={getIndicatorClass(1)}></span>
         </motion.button>
         <motion.button
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 3, ease: "linear" }}
           className={getTabClass(2)} onClick={() => goToSlide(2)}>
-          <span className="">Service <sup className="text-[10px] text-gray-400 font-mono">[4]</sup></span>
+          <span className="">Experience <sup className="text-[10px] text-gray-400 font-mono">[9y+]</sup></span>
           <span className={getIndicatorClass(2)}></span>
         </motion.button>
         <motion.button
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 4, ease: "linear" }}
           className={getTabClass(3)} onClick={() => goToSlide(3)}>
-          <span className="">Experience <sup className="text-[10px] text-gray-400 font-mono">[9y+]</sup></span>
+          <span className="">Currently <sup className="text-[10px] text-gray-400 font-mono">[Now]</sup></span>
           <span className={getIndicatorClass(3)}></span>
         </motion.button>
         <motion.button
@@ -69,14 +75,131 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
           <span className={getIndicatorClass(4)}></span>
         </motion.button>
       </nav>
+
+      {/* Right Actions: Let's Talk + Hamburger on Phone */}
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 6, ease: "linear" }}
-        className="flex items-center gap-3">
-        <button className="btn-shimmer flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-[#111113] hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm group" onClick={() => goToSlide(4)}>
+        className="flex items-center gap-2 sm:gap-3">
+        <button className="btn-shimmer flex items-center gap-2 px-3.5 sm:px-5 py-2 rounded-full bg-[#111113] hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm group" onClick={() => goToSlide(4)}>
           <span className="">Let's Talk</span>
           <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
         </button>
+
+        {/* Hamburger Toggle Button for Phone */}
+        <button
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border border-zinc-200/80 transition-all active:scale-90"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          {isMobileMenuOpen ? (
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
       </motion.div>
+
+      {/* Mobile Menu Dropdown with Backdrop Blur */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden absolute top-full left-3 right-3 mt-2 p-3 bg-white/98 backdrop-blur-2xl border border-zinc-200/90 rounded-2xl shadow-2xl z-50 flex flex-col gap-1"
+          >
+            <button
+              onClick={() => {
+                goToHomeState(0);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
+                currentSlide === 0 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+              }`}
+            >
+              <span>Home</span>
+              <span className={`text-[11px] font-mono ${currentSlide === 0 ? 'text-zinc-300' : 'text-zinc-400'}`}>01</span>
+            </button>
+
+            <button
+              onClick={() => {
+                goToSlide(1);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
+                currentSlide === 1 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+              }`}
+            >
+              <span className="flex items-center gap-1.5">
+                <span>Work</span>
+                <span className="text-[10px] font-mono opacity-70">[13]</span>
+              </span>
+              <span className={`text-[11px] font-mono ${currentSlide === 1 ? 'text-zinc-300' : 'text-zinc-400'}`}>02</span>
+            </button>
+
+            <button
+              onClick={() => {
+                goToSlide(2);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
+                currentSlide === 2 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+              }`}
+            >
+              <span className="flex items-center gap-1.5">
+                <span>Experience</span>
+                <span className="text-[10px] font-mono opacity-70">[9y+]</span>
+              </span>
+              <span className={`text-[11px] font-mono ${currentSlide === 2 ? 'text-zinc-300' : 'text-zinc-400'}`}>03</span>
+            </button>
+
+            <button
+              onClick={() => {
+                goToSlide(3);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
+                currentSlide === 3 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+              }`}
+            >
+              <span className="flex items-center gap-1.5">
+                <span>Currently</span>
+                <span className="text-[10px] font-mono opacity-70">[Now]</span>
+              </span>
+              <span className={`text-[11px] font-mono ${currentSlide === 3 ? 'text-zinc-300' : 'text-zinc-400'}`}>04</span>
+            </button>
+
+            <button
+              onClick={() => {
+                goToSlide(4);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
+                currentSlide === 4 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+              }`}
+            >
+              <span>Contact</span>
+              <span className={`text-[11px] font-mono ${currentSlide === 4 ? 'text-zinc-300' : 'text-zinc-400'}`}>05</span>
+            </button>
+
+            <div className="pt-2 mt-1 border-t border-zinc-100 flex items-center gap-2">
+              <Link
+                href="/works"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex-1 text-center py-2 px-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-900 transition-colors"
+              >
+                All Works &amp; Archive ↗
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

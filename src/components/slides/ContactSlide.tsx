@@ -8,9 +8,8 @@ interface ContactSlideProps {
 }
 
 export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-center items-center text-center px-6 sm:px-12 lg:px-16 py-10 overflow-y-auto no-scrollbar relative ${
-    isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
-  }`;
+  const containerClass = `slide-panel flex flex-col justify-center items-center text-center px-4 sm:px-12 lg:px-16 py-8 sm:py-10 overflow-y-auto no-scrollbar relative ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
+    }`;
 
   const footerContainer: any = {
     hidden: { opacity: 0 },
@@ -28,7 +27,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
   return (
     <div className={containerClass} id="slide-4" style={{ zIndex: isActive ? 20 : 10 }}>
       {/* Glowing status badge */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -41,9 +40,9 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
         </span>
         Available for New Project
       </motion.div>
-      
+
       {/* Main Title */}
-      <motion.h2 
+      <motion.h2
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -52,7 +51,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
       >
         HAVE A PROJECT IN MIND?
       </motion.h2>
-      
+
       {/* Subtext and Interactive Scope Chips */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -84,7 +83,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
       </motion.div>
 
       {/* Email Action CTA */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -103,7 +102,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
       </motion.div>
 
       {/* Bottom Profile / Identity Row */}
-      <motion.div 
+      <motion.div
         variants={footerContainer as any}
         initial="hidden"
         whileInView="show"

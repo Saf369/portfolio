@@ -26,6 +26,28 @@ export default function Page() {
     heroStageRef.current = heroStage;
   }, [heroStage]);
 
+  useEffect(() => {
+    document.documentElement.classList.add('home-slider-mode');
+    document.body.classList.add('home-slider-mode');
+
+    // Support deep-linking to slides via ?slide=1, ?slide=2, etc.
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const slideParam = params.get('slide');
+      if (slideParam !== null) {
+        const idx = parseInt(slideParam, 10);
+        if (!isNaN(idx) && idx >= 0 && idx < totalSlides) {
+          setCurrentSlide(idx);
+        }
+      }
+    }
+
+    return () => {
+      document.documentElement.classList.remove('home-slider-mode');
+      document.body.classList.remove('home-slider-mode');
+    };
+  }, []);
+
   const toggleHeroState = () => {
     setHeroStage((prev) => (prev === 0 ? 1 : 0));
   };
@@ -48,16 +70,9 @@ export default function Page() {
       if (Math.abs(delta) < threshold) return;
 
       const slide = currentSlideRef.current;
-      const stage = heroStageRef.current;
 
       if (delta > 0) {
-        if (slide === 0 && stage === 0) {
-          isThrottledRef.current = true;
-          setHeroStage(1);
-          setTimeout(() => {
-            isThrottledRef.current = false;
-          }, 350);
-        } else if (slide < totalSlides - 1) {
+        if (slide < totalSlides - 1) {
           isThrottledRef.current = true;
           goToSlide(slide + 1);
           setTimeout(() => {
@@ -65,18 +80,9 @@ export default function Page() {
           }, TRANSITION_DURATION);
         }
       } else {
-        if (slide === 0 && stage === 1) {
-          isThrottledRef.current = true;
-          setHeroStage(0);
-          setTimeout(() => {
-            isThrottledRef.current = false;
-          }, 350);
-        } else if (slide > 0) {
+        if (slide > 0) {
           isThrottledRef.current = true;
           goToSlide(slide - 1);
-          if (slide === 1) {
-            setHeroStage(1);
-          }
           setTimeout(() => {
             isThrottledRef.current = false;
           }, TRANSITION_DURATION);
@@ -152,10 +158,11 @@ export default function Page() {
     };
   }, []);
 
-  const isDark = currentSlide === 3;
+  const isDark = currentSlide === 2;
   
-  // Use 100dvh minus body padding (1.5rem * 2 = 3rem, lg: 2rem * 2 = 4rem) so it always fits perfectly on mobile without clipping
-  const mainWindowClass = `window-card-container relative overflow-hidden flex flex-col h-[calc(100dvh-3rem)] lg:h-[calc(100dvh-4rem)] max-h-[860px] w-full transition-all duration-500 rounded-[32px] shadow-sm ${
+  // On mobile: h-dvh, rounded-none, border-0, shadow-none, max-h-none. Expands to all sides.
+  // On desktop: contained rounded card with frosted glass border wrapper.
+  const mainWindowClass = `window-card-container relative overflow-hidden flex flex-col h-dvh sm:h-[calc(100dvh-3rem)] lg:h-[calc(100dvh-4rem)] max-h-none sm:max-h-[860px] w-full transition-all duration-500 rounded-none sm:rounded-[32px] border-0 sm:border shadow-none sm:shadow-sm ${
     isDark ? 'dark-theme-active' : ''
   }`;
   const mainWindowStyle = { backgroundColor: isDark ? '#161619' : '#ffffff' };
@@ -163,12 +170,12 @@ export default function Page() {
   return (
     <>
       <div className="fixed inset-0 z-0 pointer-events-none bg-cover bg-top" style={{ backgroundImage: "url('/cloud-bg.jpg')" }}></div>
-      <div className="relative z-10 w-full flex justify-center items-center h-full">
+      <div className="relative z-10 w-full min-h-dvh flex justify-center items-center h-full">
         {/* Main Outer Static Window Container */}
-        <div className="w-full max-w-[1240px] flex-1 flex flex-col justify-center my-auto relative z-10">
+        <div className="w-full sm:max-w-[1240px] flex-1 flex flex-col justify-center my-auto relative z-10 h-dvh sm:h-auto">
           {/* OUTER FROSTED GLASS BORDER WRAPPER */}
           <div
-            className="p-3 sm:p-4 lg:p-5 rounded-[44px] bg-white/20 backdrop-blur-xl shadow-2xl border border-white/40 w-full flex flex-col transition-all duration-500"
+            className="p-0 sm:p-4 lg:p-5 rounded-none sm:rounded-[44px] bg-transparent sm:bg-white/20 sm:backdrop-blur-xl sm:shadow-2xl border-0 sm:border sm:border-white/40 w-full h-full sm:h-auto flex flex-col transition-all duration-500"
             id="main-window-wrapper"
           >
             {/* THE STATIC WINDOW FRAME */}
@@ -179,7 +186,7 @@ export default function Page() {
               </div>
 
               {/* SLIDING VIEWPORT */}
-              <main className="relative flex-1 w-full overflow-hidden select-text rounded-b-[32px]" id="slider-viewport">
+              <main className="relative flex-1 w-full overflow-hidden select-text rounded-none sm:rounded-b-[32px]" id="slider-viewport">
                 <div className="relative w-full h-full" id="inner-slider-track">
                   <HomeSlide
                     isActive={currentSlide === 0}
@@ -195,16 +202,16 @@ export default function Page() {
                     isBelow={currentSlide < 1}
                     goToSlide={goToSlide}
                   />
-                  <ServiceSlide
+                  <ExperienceSlide
                     isActive={currentSlide === 2}
                     isAbove={currentSlide > 2}
                     isBelow={currentSlide < 2}
-                    goToSlide={goToSlide}
                   />
-                  <ExperienceSlide
+                  <ServiceSlide
                     isActive={currentSlide === 3}
                     isAbove={currentSlide > 3}
                     isBelow={currentSlide < 3}
+                    goToSlide={goToSlide}
                   />
                   <ContactSlide
                     isActive={currentSlide === 4}
@@ -214,8 +221,8 @@ export default function Page() {
                 </div>
               </main>
             </div>
-            {/* Minimal Outer Copyright */}
-            <div className="text-center py-3 text-xs text-neutral-600 font-medium">
+            {/* Minimal Outer Copyright - hidden on mobile to give full screen to content */}
+            <div className="hidden sm:block text-center py-3 text-xs text-neutral-600 font-medium">
               <p className="">© 2026 Safwan Muhammed. All rights reserved.</p>
             </div>
           </div>

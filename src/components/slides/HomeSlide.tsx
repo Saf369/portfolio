@@ -18,16 +18,15 @@ export default function HomeSlide({
   toggleHeroState,
   goToSlide,
 }: HomeSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-between px-6 sm:px-12 pt-4 sm:pt-6 pb-8 overflow-hidden ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
+  const containerClass = `slide-panel flex flex-col justify-between px-4 sm:px-12 pt-3 sm:pt-6 pb-4 sm:pb-8 overflow-hidden ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
     }`;
 
   const heroStyle = {
-    opacity: heroStage === 0 ? '0.9' : '1',
-    transform: heroStage === 0 ? 'scale(1)' : 'scale(1.02)',
+    opacity: '1',
+    transform: 'scale(1)',
   };
 
-  const portraitClass = `portrait-container relative w-full max-w-md flex justify-center -mb-2 z-30 group cursor-pointer overflow-hidden transition-all duration-700 ${heroStage === 0 ? 'portrait-stage-large mt-0' : 'portrait-stage-compact mt-4 sm:mt-6 md:mt-0'
-    }`;
+  const portraitClass = `portrait-container relative w-full max-w-md flex justify-center -mb-2 z-30 overflow-hidden portrait-stage-large`;
 
   const socialContainer = {
     hidden: { opacity: 0 },
@@ -89,12 +88,10 @@ export default function HomeSlide({
           </button>
         </motion.div>
 
-        {/* Center Portrait with Hero Zoom / Minimizing Stage Interaction */}
+        {/* Center Portrait */}
         <div
-          className={`${portraitClass} order-1 md:order-2 mx-auto md:absolute md:bottom-0 md:left-[calc(65%-90px)] md:-translate-x-1/2 md:h-[580px] md:max-w-[620px]`}
+          className={`${portraitClass} order-1 md:order-2 mx-auto md:absolute md:bottom-0 md:left-[calc(65%-90px)] md:-translate-x-1/2 md:h-[480px] md:max-w-[500px]`}
           id="hero-portrait-box"
-          onClick={toggleHeroState}
-          title="Click to toggle hero showcase"
           style={{
             overflow: 'visible',
             alignItems: 'flex-end',
@@ -109,14 +106,14 @@ export default function HomeSlide({
             animate={{ opacity: 1 }}
             transition={{ duration: 0.45, delay: 1.1, ease: "linear" }}
             alt="Safwan Muhammed Portrait"
-            className="portrait-floating relative w-auto max-w-full object-cover object-top h-full md:h-[510px] lg:h-[540px] contrast-125 brightness-95 filter grayscale transition-all duration-700 ease-out"
+            className="portrait-floating relative w-auto max-w-full object-contain sm:object-cover object-top h-full md:h-[410px] lg:h-[430px] contrast-125 brightness-95 filter grayscale transition-all duration-700 ease-out"
             id="hero-portrait-img"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_RxsfmLsUMMwjD5Kpo6uWksM3f_J1R5hkqftkTdOE5pViRsHXLYBzg4o6UjxwE7pROR5JCfdDDPXdzaPhC_OVyYpetPBkQ0u2diTUgDNuZLbBlj0sypAj9hXKmtER_TQvziXOQuKLCGRZKq_87nfmMMXUxlSJUltGYRZ3VXK6tfqOLP_Evzky-kme-wiyQAHWxmfaPdHVtyEijU1zCDOfS_e_Z7FmxXPDEXCPgyugMNvcxb3mFO4EKuKFaNt405x4eQ"
+            src="/portrait.png?v=4"
             style={{
               objectPosition: 'center top',
               transformOrigin: 'center bottom 0px',
-              filter: 'grayscale(100%) contrast(1.1)',
-              maskImage: 'linear-gradient(black 0%, black 85%, transparent 100%)',
+              filter: 'grayscale(100%) contrast(1.05) drop-shadow(0 0 8px rgba(255, 255, 255, 0.85))',
+              maskImage: 'linear-gradient(black 0%, black 92%, transparent 100%)',
             }}
           />
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 interface ServiceSlideProps {
@@ -8,179 +9,210 @@ interface ServiceSlideProps {
   goToSlide: (index: number) => void;
 }
 
-export default function ServiceSlide({ isActive, isAbove, isBelow, goToSlide }: ServiceSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-start px-6 sm:px-12 lg:px-14 pt-12 pb-10 overflow-y-auto no-scrollbar ${
+export default function ServiceSlide({
+  isActive,
+  isAbove,
+  isBelow,
+  goToSlide,
+}: ServiceSlideProps) {
+  const containerClass = `slide-panel flex flex-col justify-between overflow-hidden bg-white px-4 sm:px-12 lg:px-14 pt-5 sm:pt-7 pb-5 sm:pb-7 ${
     isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
   }`;
 
-  const listContainer: any = {
+  const listContainer = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.20, delayChildren: 0.2 } // 200ms stagger between rows
-    }
+      transition: { staggerChildren: 0.07, delayChildren: 0.08 },
+    },
   };
 
-  const itemVariants: any = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.45, ease: "linear" } }
-  };
-
-  const lineVariants: any = {
-    hidden: { scaleX: 0 },
-    show: { scaleX: 1, transition: { duration: 0.3, delay: 0.2 } }
+  const itemVariants = {
+    hidden: { opacity: 0, y: 8 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
   };
 
   return (
-    <div className={containerClass} id="slide-2" style={{ zIndex: isActive ? 20 : 10 }}>
-      {/* Section Title */}
-      <div className="mb-10 relative">
-        {/* Oversized Ghost Heading (Static Layer) */}
-        <div className="absolute -left-4 -top-8 select-none pointer-events-none z-0">
-          <span className="text-6xl sm:text-7xl lg:text-[110px] font-black tracking-tight text-black/[0.04] uppercase leading-none font-display">
-            SERVICE
-          </span>
-        </div>
-
-        <motion.h2 
+    <div
+      className={containerClass}
+      id="slide-3"
+      style={{ zIndex: isActive ? 20 : 10 }}
+    >
+      {/* Section Header with Watermark matching WorkSlide */}
+      <div className="relative text-left pt-1">
+        {/* Static Ghost Layer */}
+        <span className="absolute left-0 -top-3 sm:-top-7 text-5xl sm:text-7xl lg:text-8xl font-black text-gray-100/90 tracking-widest select-none pointer-events-none uppercase font-display">
+          CURRENTLY
+        </span>
+        <motion.h2
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45, ease: "linear" }}
-          className="text-4xl lg:text-[42px] font-medium tracking-tight text-[#111113] relative z-10"
+          transition={{ duration: 0.45, ease: 'linear' }}
+          className="relative text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#111113]"
         >
-          /SERVICE
+          /CURRENTLY
         </motion.h2>
       </div>
 
-      {/* Services List */}
-      <motion.div 
-        variants={listContainer}
+      {/* Status Bar & More CTA Button matching WorkSlide */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: 'linear', delay: 0.1 }}
+        className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-gray-200"
+      >
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-gray-200 bg-white shadow-sm text-xs font-semibold text-gray-800">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span>Live Focus</span>
+          <span className="text-gray-300">·</span>
+          <span className="text-gray-500 font-mono text-[11px]">October 2026</span>
+        </div>
+
+        <Link
+          href="/currently"
+          className="btn-shimmer-light flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 hover:border-black text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 group"
+        >
+          <span>More</span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </Link>
+      </motion.div>
+
+      {/* Main Content Area: 2-Column Grid + Full Width Current Target Box Below */}
+      <motion.div
+        variants={listContainer as any}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="space-y-0 relative"
+        className="relative z-10 flex flex-col justify-between my-auto py-0.5"
       >
-        {/* Service 1: UIUX DESIGN (Highlighted expanded view) */}
-        <motion.div variants={itemVariants} className="service-card relative bg-[#222222] text-white rounded-[6px] p-8 sm:p-10 flex flex-col md:flex-row justify-between items-center gap-6 overflow-visible shadow-2xl transition-all duration-300 group z-20 mb-2">
-          <div className="max-w-sm z-10 w-full md:w-auto">
-            <h3 className="text-3xl sm:text-4xl lg:text-[44px] font-normal tracking-wide mt-1">UIUX DESIGN</h3>
-            <p className="text-gray-400 text-[15px] mt-4 leading-relaxed font-light">
-              Designing clear and scalable interfaces for dashboards, mobile apps, and websites.
-            </p>
-          </div>
-          {/* Interactive Floating Mobile Mockups */}
-          <div className="absolute right-32 -top-12 md:right-28 md:-top-16 lg:right-40 transform rotate-[10deg] w-72 h-44 hidden md:flex items-center justify-center gap-1.5 pointer-events-none transition-all duration-500 group-hover:rotate-[8deg] group-hover:scale-105 z-30">
-            {/* Phone 1 */}
-            <div className="w-[84px] h-[170px] bg-white rounded-[12px] p-1.5 flex flex-col justify-start shadow-xl border border-gray-100 transform -rotate-[8deg] translate-y-3 z-10">
-              <div className="w-full h-2.5 bg-gray-50 rounded-full mb-1 flex justify-center items-center">
-                 <div className="w-4 h-[3px] bg-gray-300 rounded-full"></div>
+        {/* 2-Column Fields Grid: Cognifyr & IEEE CUSAT SB (Pushed a bit above) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-5 mb-5 sm:mb-7">
+          {/* Card 1: Cognifyr */}
+          <motion.div
+            variants={itemVariants as any}
+            className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm hover:border-gray-400 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
+                  01 / Engineering Internship
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-[10px] font-semibold text-gray-700">
+                  PRESENT
+                </span>
               </div>
-              <div className="flex-1 w-full rounded-sm flex flex-col items-center justify-center gap-1.5 border border-gray-50 pt-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-indigo-400 shadow-sm flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-white opacity-80"></div>
+
+              <div className="space-y-1">
+                <div className="flex items-baseline justify-between gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 truncate">
+                    Full Stack Engineer Intern
+                  </h3>
+                  <span className="text-[11px] font-mono text-gray-400 shrink-0">
+                    Oct 2026 — Present
+                  </span>
                 </div>
-                <div className="h-[3px] w-12 bg-gray-200 rounded-full"></div>
-                <div className="h-[3px] w-16 bg-gray-200 rounded-full"></div>
-                <div className="mt-auto w-full grid grid-cols-4 gap-1 p-1">
-                   <div className="w-full h-3 bg-gray-100 rounded-sm"></div>
-                   <div className="w-full h-3 bg-gray-100 rounded-sm"></div>
-                   <div className="w-full h-3 bg-gray-100 rounded-sm"></div>
-                   <div className="w-full h-3 bg-gray-100 rounded-sm"></div>
+                <p className="text-xs text-gray-500 font-medium">
+                  COGNIFYR · Kochi, Kerala · Hybrid
+                </p>
+                <p className="text-xs text-gray-600 font-light leading-relaxed">
+                  Distributed BullMQ task queues, Redis workers, &amp; autonomous Telegram agent ops.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-gray-100 mt-2">
+              {['BullMQ', 'Redis', 'Next.js', 'Node.js', 'Hybrid'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-0.5 rounded-full bg-gray-100 text-[10px] sm:text-xs text-gray-600 font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Card 2: IEEE CUSAT SB */}
+          <motion.div
+            variants={itemVariants as any}
+            className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm hover:border-gray-400 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
+                  02 / Student Leadership
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-[10px] font-semibold text-gray-700">
+                  PRESENT
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex items-baseline justify-between gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 truncate">
+                    Web Associate
+                  </h3>
+                  <span className="text-[11px] font-mono text-gray-400 shrink-0">
+                    Mar 2026 — Present
+                  </span>
                 </div>
+                <p className="text-xs text-gray-500 font-medium">
+                  IEEE CUSAT SB · CUSAT · Hybrid
+                </p>
+                <p className="text-xs text-gray-600 font-light leading-relaxed">
+                  Managing branch web portals, registration systems, &amp; technical developer operations.
+                </p>
               </div>
             </div>
-            {/* Phone 2 (Center) */}
-            <div className="w-[88px] h-[178px] bg-white rounded-[12px] p-1.5 flex flex-col justify-start shadow-2xl border border-gray-100 transform -translate-y-1 z-20">
-              <div className="w-full h-2.5 bg-gray-50 rounded-full mb-1 flex justify-center items-center">
-                 <div className="w-4 h-[3px] bg-gray-300 rounded-full"></div>
-              </div>
-              <div className="flex-1 w-full bg-gradient-to-b from-blue-50/50 to-white rounded-sm flex flex-col items-center justify-center gap-2 border border-blue-50/50">
-                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-300 to-purple-400 shadow-[0_0_15px_rgba(96,165,250,0.5)] flex items-center justify-center">
-                    <div className="w-6 h-6 rounded-full bg-white opacity-40"></div>
-                 </div>
-                 <div className="h-[3px] w-14 bg-gray-200 rounded-full mt-2"></div>
-                 <div className="w-full mt-auto h-6 bg-gray-50 flex items-center justify-center rounded-sm"><div className="w-4 h-4 rounded-full bg-blue-500"></div></div>
-              </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-gray-100 mt-2">
+              {['React', 'Web Systems', 'Team Leadership', 'Event Ops'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-0.5 rounded-full bg-gray-100 text-[10px] sm:text-xs text-gray-600 font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-            {/* Phone 3 */}
-            <div className="w-[84px] h-[170px] bg-white rounded-[12px] p-1.5 flex flex-col justify-start shadow-xl border border-gray-100 transform rotate-[6deg] translate-y-3 z-10">
-              <div className="w-full h-2.5 bg-gray-50 rounded-full mb-1 flex justify-center items-center">
-                 <div className="w-4 h-[3px] bg-gray-300 rounded-full"></div>
-              </div>
-              <div className="flex-1 w-full rounded-sm flex flex-col gap-1 border border-gray-50 p-1">
-                 <div className="w-full h-[60px] rounded-[4px] bg-gradient-to-tr from-orange-400 to-yellow-300 flex items-end p-1.5 overflow-hidden relative">
-                    <div className="absolute right-1 top-1 w-4 h-4 rounded-full bg-white/30"></div>
-                    <div className="w-full h-2 bg-white/40 rounded-sm"></div>
-                 </div>
-                 <div className="flex gap-1 mt-1">
-                    <div className="w-1/2 h-10 rounded-[4px] bg-orange-100/50"></div>
-                    <div className="w-1/2 h-10 rounded-[4px] bg-yellow-100/50 flex flex-col gap-1 p-1">
-                       <div className="w-full h-2 bg-yellow-200 rounded-sm"></div>
-                       <div className="w-2/3 h-2 bg-yellow-200 rounded-sm"></div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-          </div>
-          {/* Close button X */}
-          <div className="self-center text-gray-300 p-2 cursor-pointer hover:text-white transition-colors duration-200 hidden md:block">
-            <svg className="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-               <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="1" d="M6 18L18 6M6 6l12 12"></path>
+          </motion.div>
+        </div>
+
+        {/* Dedicated Current Target Box Below matching screenshot */}
+        <motion.section
+          variants={itemVariants as any}
+          className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm space-y-2"
+        >
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-4.5 h-4.5 text-red-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
             </svg>
+            <h3 className="font-sans text-sm sm:text-base font-bold text-gray-900">
+              Current Target
+            </h3>
           </div>
-        </motion.div>
-        
-        {/* Service 2: WEB DESIGN & DEV */}
-        <motion.div variants={itemVariants} className="relative z-10">
-          <div
-            className="group relative flex items-center justify-between py-6 px-1 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white transition-all duration-300 rounded-sm"
-            onClick={() => goToSlide(4)}
-          >
-            <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
-              WEB DESIGN &amp; DEV
-            </span>
-            <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-              ↗
-            </span>
+
+          <p className="font-sans text-xs sm:text-[13px] text-gray-500 leading-relaxed max-w-3xl">
+            Seeking a <strong className="text-gray-900 font-bold">Summer 2027 AI Engineer Internship</strong>. Eager to work on autonomous agents, LLM orchestration, model integrations, or AI developer platforms.
+          </p>
+
+          <div className="font-mono text-xs sm:text-[13px] text-red-600 font-medium pt-0.5">
+            * Open to remote work or relocating to Bangalore/Kochi.
           </div>
-          {/* Animated Divider */}
-          <motion.div variants={lineVariants} style={{ originX: 0 }} className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300/60 pointer-events-none" />
-        </motion.div>
-        
-        {/* Service 3: BRANDING */}
-        <motion.div variants={itemVariants} className="relative z-10">
-          <div
-            className="group relative flex items-center justify-between py-6 px-1 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white transition-all duration-300 rounded-sm"
-            onClick={() => goToSlide(4)}
-          >
-            <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
-              BRANDING
-            </span>
-            <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-              ↗
-            </span>
-          </div>
-          {/* Animated Divider */}
-          <motion.div variants={lineVariants} style={{ originX: 0 }} className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300/60 pointer-events-none" />
-        </motion.div>
-        
-        {/* Service 4: MOTIONS & ANIMATIONS */}
-        <motion.div variants={itemVariants} className="relative z-10">
-          <div
-            className="group relative flex items-center justify-between py-6 px-1 cursor-pointer hover:px-6 hover:bg-[#111113] hover:text-white transition-all duration-300 rounded-sm"
-            onClick={() => goToSlide(4)}
-          >
-            <span className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-wide text-[#111113] group-hover:text-white transition-colors duration-300">
-              MOTIONS &amp; ANIMATIONS
-            </span>
-            <span className="text-3xl font-light text-[#111113] group-hover:text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-              ↗
-            </span>
-          </div>
-          {/* Animated Divider */}
-          <motion.div variants={lineVariants} style={{ originX: 0 }} className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300/60 pointer-events-none" />
-        </motion.div>
+        </motion.section>
       </motion.div>
     </div>
   );
