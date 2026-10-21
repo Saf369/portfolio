@@ -10,9 +10,8 @@ interface WorkSlideProps {
 }
 
 export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: WorkSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-between px-4 sm:px-12 lg:px-14 pt-4 sm:pt-6 pb-5 sm:pb-7 overflow-y-auto no-scrollbar ${
-    isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
-  }`;
+  const containerClass = `slide-panel flex flex-col justify-between px-4 sm:px-12 lg:px-14 pt-4 sm:pt-6 pb-5 sm:pb-7 overflow-y-auto no-scrollbar ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
+    }`;
 
   const gridContainer: any = {
     hidden: { opacity: 0 },
@@ -37,23 +36,21 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
           <span className="absolute left-0 -top-3 sm:-top-7 text-5xl sm:text-7xl lg:text-8xl font-black text-gray-100/90 tracking-widest select-none pointer-events-none uppercase font-display">
             PORTFOLIO
           </span>
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: "linear" }}
+          <motion.h2
+            initial={{ opacity: 0, y: 14 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+            transition={isActive ? { duration: 0.3, delay: 0, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
             className="relative text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#111113]"
           >
             /SELECTED WORK
           </motion.h2>
         </div>
-        
+
         {/* More CTA Button matching Currently */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, ease: "linear", delay: 0.1 }}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={isActive ? { duration: 0.28, delay: 0.02, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
           className="flex items-center justify-end pb-2 sm:pb-2.5 border-b border-gray-200 mb-3 sm:mb-5"
         >
           <Link
@@ -65,22 +62,20 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
           </Link>
         </motion.div>
       </div>
-      
+
       {/* Portfolio 2-Card Grid occupying desktop space fully */}
-      <motion.div 
-        variants={gridContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-8 my-auto w-full pb-1"
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-8 my-auto w-full pb-1"
       >
         {/* Project Card 1: Cognifyr AI Telegram Bot */}
         <Link href="/works" className="group cursor-pointer flex flex-col focus:outline-none">
           <motion.article
-            variants={cardVariants as any}
+            initial={{ opacity: 0, y: 18 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={isActive ? { duration: 0.3, delay: 0.03, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
             className="flex flex-col h-full"
           >
-            <div className="relative bg-[#0b101b] rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] lg:aspect-[1.28/1] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
+            <div className="relative bg-[#0b101b] rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] lg:aspect-[1.28/1] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-[box-shadow,border-color] duration-300">
               <div className="relative w-[88%] h-[86%] bg-gradient-to-b from-[#0f172a] via-[#090d16] to-black rounded-xl p-4 sm:p-5 border border-sky-900/40 flex flex-col items-center justify-between text-center overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
                 <div className="flex justify-between w-full text-[11px] text-zinc-400 items-center">
                   <span className="font-bold text-white flex items-center gap-1.5 font-mono">
@@ -146,10 +141,12 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
         {/* Project Card 2: Custom Syllabus / widget_app */}
         <Link href="/works" className="group cursor-pointer flex flex-col focus:outline-none">
           <motion.article
-            variants={cardVariants as any}
+            initial={{ opacity: 0, y: 18 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={isActive ? { duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
             className="flex flex-col h-full"
           >
-            <div className="relative bg-[#0d0e15] rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] lg:aspect-[1.28/1] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-all duration-500">
+            <div className="relative bg-[#0d0e15] rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] lg:aspect-[1.28/1] flex items-center justify-center border border-zinc-800 shadow-md group-hover:shadow-2xl transition-[box-shadow,border-color] duration-300">
               <div className="relative w-[90%] h-[86%] bg-gradient-to-br from-indigo-950/40 via-neutral-900 to-black rounded-xl p-4 sm:p-5 border border-indigo-900/40 flex items-center justify-between overflow-hidden shadow-inner transition-transform duration-500 ease-out group-hover:scale-105">
                 <div className="flex flex-col justify-between h-full z-10 text-left max-w-[58%]">
                   <div className="flex items-center gap-1.5 text-[11px] text-indigo-400 font-mono">
@@ -169,7 +166,7 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
                   </div>
                 </div>
                 {/* Mobile Screen Mockup */}
-                <div className="relative w-[38%] h-[115%] -bottom-2 right-0 flex items-end justify-center transform rotate-[-4deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
+                <div className="relative w-[38%] h-[115%] -bottom-2 right-0 flex items-end justify-center transform rotate-[-4deg] group-hover:rotate-0 group-hover:scale-105 transition-transform duration-300">
                   <img
                     src="/widget_app_home.png"
                     alt="Custom Syllabus Mobile App"
@@ -208,7 +205,7 @@ export default function WorkSlide({ isActive, isAbove, isBelow, goToSlide }: Wor
             </div>
           </motion.article>
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 }

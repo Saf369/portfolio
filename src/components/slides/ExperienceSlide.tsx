@@ -69,9 +69,11 @@ const EXPERIENCES: ExperienceItem[] = [
 const TimelineRow = ({
   item,
   index,
+  isActive,
 }: {
   item: ExperienceItem;
   index: number;
+  isActive: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const mouseX = useMotionValue(0);
@@ -110,11 +112,10 @@ const TimelineRow = ({
 
       {/* Compact Timeline Row Card */}
       <motion.div
-        variants={{
-          hidden: { opacity: 0, x: -10 },
-          show: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" } },
-        }}
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 px-3.5 sm:px-5 lg:px-6 py-2.5 sm:py-3 lg:py-4 rounded-xl lg:rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-white/15 transition-all duration-200"
+        initial={{ opacity: 0, x: -16, y: 4 }}
+        animate={isActive ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -16, y: 4 }}
+        transition={isActive ? { duration: 0.28, delay: 0.02 + index * 0.02, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
+        className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 px-3.5 sm:px-5 lg:px-6 py-2.5 sm:py-3 lg:py-4 rounded-xl lg:rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-white/15 transition-colors duration-200"
       >
         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 min-w-0">
           <div className="min-w-[140px] sm:min-w-[210px] lg:min-w-[250px] shrink-0">
@@ -216,15 +217,14 @@ const TimelineRow = ({
 };
 
 export default function ExperienceSlide({ isActive, isAbove, isBelow }: ExperienceSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-between overflow-hidden bg-[#222222] ${
-    isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
-  }`;
+  const containerClass = `slide-panel flex flex-col justify-between overflow-hidden bg-[#222222] ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
+    }`;
 
   const listContainer = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+      transition: { staggerChildren: 0.03, delayChildren: 0.01 },
     },
   };
 
@@ -246,19 +246,17 @@ export default function ExperienceSlide({ isActive, isAbove, isBelow }: Experien
         {/* Header Row */}
         <div className="relative z-10 flex items-end justify-between mb-2 sm:mb-4">
           <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: "linear" }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+            transition={isActive ? { duration: 0.3, delay: 0, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
             className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-white flex items-center"
           >
             /EXPERIENCE
           </motion.h2>
           <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: "linear", delay: 0.1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={isActive ? { duration: 0.28, delay: 0.02, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
             className="text-xs sm:text-sm font-light text-gray-300 pb-1"
           >
             B.Tech IT '28
@@ -270,12 +268,11 @@ export default function ExperienceSlide({ isActive, isAbove, isBelow }: Experien
           <motion.div
             variants={listContainer as any}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
+            animate={isActive ? "show" : "hidden"}
             className="flex flex-col"
           >
             {EXPERIENCES.map((item, idx) => (
-              <TimelineRow key={item.company} item={item} index={idx} />
+              <TimelineRow key={item.company} item={item} index={idx} isActive={isActive} />
             ))}
           </motion.div>
         </div>

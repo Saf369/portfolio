@@ -632,7 +632,7 @@ export default function WorksPage() {
           >
             {/* The Static Window Frame Matching Home Page */}
             <div className="window-card-container relative flex flex-col w-full transition-all duration-500 rounded-none sm:rounded-[32px] border-0 sm:border shadow-none sm:shadow-sm bg-white overflow-hidden">
-              
+
               {/* Header Bar Matching Header.tsx from Home Page */}
               <header
                 className="sticky top-0 z-40 w-full flex items-center justify-between px-4 sm:px-10 py-3.5 sm:py-5 border-b backdrop-blur-md transition-colors duration-500 rounded-none sm:rounded-t-[32px] bg-white/95 border-zinc-200/80 shadow-xs"

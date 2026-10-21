@@ -15,9 +15,8 @@ export default function ServiceSlide({
   isBelow,
   goToSlide,
 }: ServiceSlideProps) {
-  const containerClass = `slide-panel flex flex-col justify-between overflow-hidden bg-white px-4 sm:px-12 lg:px-14 pt-5 sm:pt-7 pb-5 sm:pb-7 ${
-    isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
-  }`;
+  const containerClass = `slide-panel flex flex-col justify-between overflow-hidden bg-white px-4 sm:px-12 lg:px-14 pt-5 sm:pt-7 pb-5 sm:pb-7 ${isActive ? 'active-slide' : isAbove ? 'slide-above' : 'slide-below'
+    }`;
 
   const listContainer = {
     hidden: { opacity: 0 },
@@ -45,10 +44,9 @@ export default function ServiceSlide({
           CURRENTLY
         </span>
         <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, ease: 'linear' }}
+          initial={{ opacity: 0, y: 14 }}
+          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+          transition={isActive ? { duration: 0.3, delay: 0, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
           className="relative text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#111113]"
         >
           /CURRENTLY
@@ -57,10 +55,9 @@ export default function ServiceSlide({
 
       {/* Status Bar & More CTA Button matching WorkSlide */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.45, ease: 'linear', delay: 0.1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={isActive ? { duration: 0.28, delay: 0.02, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
         className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-gray-200"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-gray-200 bg-white shadow-sm text-xs font-semibold text-gray-800">
@@ -83,19 +80,17 @@ export default function ServiceSlide({
       </motion.div>
 
       {/* Main Content Area: 2-Column Grid + Full Width Current Target Box Below */}
-      <motion.div
-        variants={listContainer as any}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
+      <div
         className="relative z-10 flex flex-col justify-between my-auto py-0.5"
       >
-        {/* 2-Column Fields Grid: Cognifyr & IEEE CUSAT SB (Pushed a bit above) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-5 mb-5 sm:mb-7">
+        {/* 2-Column Fields Grid: Cognifyr & IEEE CUSAT SB */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-5 mb-3 sm:mb-5 lg:mb-6">
           {/* Card 1: Cognifyr */}
           <motion.div
-            variants={itemVariants as any}
-            className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm hover:border-gray-400 transition-all duration-300 flex flex-col justify-between"
+            initial={{ opacity: 0, y: 18 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={isActive ? { duration: 0.3, delay: 0.03, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
+            className="bg-white rounded-2xl p-3.5 sm:p-5 border border-gray-200/90 shadow-sm hover:border-gray-400 transition-colors duration-200 flex flex-col justify-between"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between border-b border-gray-100 pb-1.5">
@@ -139,8 +134,10 @@ export default function ServiceSlide({
 
           {/* Card 2: IEEE CUSAT SB */}
           <motion.div
-            variants={itemVariants as any}
-            className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm hover:border-gray-400 transition-all duration-300 flex flex-col justify-between"
+            initial={{ opacity: 0, y: 18 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={isActive ? { duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
+            className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm hover:border-gray-400 transition-colors duration-200 flex flex-col justify-between"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between border-b border-gray-100 pb-1.5">
@@ -185,8 +182,10 @@ export default function ServiceSlide({
 
         {/* Dedicated Current Target Box Below matching screenshot */}
         <motion.section
-          variants={itemVariants as any}
-          className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-sm space-y-2"
+          initial={{ opacity: 0, y: 18 }}
+          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+          transition={isActive ? { duration: 0.3, delay: 0.07, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
+          className="bg-white rounded-2xl p-3.5 sm:p-5 border border-gray-200/90 shadow-sm space-y-2"
         >
           <div className="flex items-center gap-2">
             <svg
@@ -213,7 +212,7 @@ export default function ServiceSlide({
             * Open to remote work or relocating to Bangalore/Kochi.
           </div>
         </motion.section>
-      </motion.div>
+      </div>
     </div>
   );
 }

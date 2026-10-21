@@ -15,7 +15,7 @@ export default function Page() {
   const currentSlideRef = useRef(0);
   const heroStageRef = useRef(0);
 
-  const TRANSITION_DURATION = 450;
+  const TRANSITION_DURATION = 260;
   const totalSlides = 5;
 
   useEffect(() => {
@@ -122,7 +122,7 @@ export default function Page() {
         if (deltaY > 0 && !atBottom) return;
         if (deltaY < 0 && !atTop) return;
       }
-      
+
       // Avoid preventing default for small taps to allow click events
       if (Math.abs(deltaY) > 5 && e.cancelable) {
         e.preventDefault();
@@ -159,12 +159,11 @@ export default function Page() {
   }, []);
 
   const isDark = currentSlide === 2;
-  
+
   // On mobile: h-dvh, rounded-none, border-0, shadow-none, max-h-none. Expands to all sides.
   // On desktop: contained rounded card with frosted glass border wrapper.
-  const mainWindowClass = `window-card-container relative overflow-hidden flex flex-col h-dvh sm:h-[calc(100dvh-3rem)] lg:h-[calc(100dvh-4rem)] max-h-none sm:max-h-[860px] w-full transition-all duration-500 rounded-none sm:rounded-[32px] border-0 sm:border shadow-none sm:shadow-sm ${
-    isDark ? 'dark-theme-active' : ''
-  }`;
+  const mainWindowClass = `window-card-container relative overflow-hidden flex flex-col h-dvh sm:h-[calc(100dvh-3rem)] lg:h-[calc(100dvh-4rem)] max-h-none sm:max-h-[860px] w-full transition-[background-color,border-color,box-shadow] duration-500 rounded-none sm:rounded-[32px] border-0 sm:border shadow-none sm:shadow-sm ${isDark ? 'dark-theme-active' : ''
+    }`;
   const mainWindowStyle = { backgroundColor: isDark ? '#161619' : '#ffffff' };
 
   return (
@@ -175,7 +174,7 @@ export default function Page() {
         <div className="w-full sm:max-w-[1240px] flex-1 flex flex-col justify-center my-auto relative z-10 h-dvh sm:h-auto">
           {/* OUTER FROSTED GLASS BORDER WRAPPER */}
           <div
-            className="p-0 sm:p-4 lg:p-5 rounded-none sm:rounded-[44px] bg-transparent sm:bg-white/20 sm:backdrop-blur-xl sm:shadow-2xl border-0 sm:border sm:border-white/40 w-full h-full sm:h-auto flex flex-col transition-all duration-500"
+            className="p-0 sm:p-4 lg:p-5 rounded-none sm:rounded-[44px] bg-transparent sm:bg-white/20 sm:backdrop-blur-xl sm:shadow-2xl border-0 sm:border sm:border-white/40 w-full h-full sm:h-auto flex flex-col transition-[background-color,border-color] duration-500"
             id="main-window-wrapper"
           >
             {/* THE STATIC WINDOW FRAME */}

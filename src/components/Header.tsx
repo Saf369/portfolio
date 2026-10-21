@@ -19,19 +19,19 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
 
   const getIndicatorClass = (index: number) => {
     return currentSlide === index
-      ? "nav-indicator absolute bottom-0 left-2 right-2 h-[2px] rounded-full transition-all duration-300 bg-black"
-      : "nav-indicator absolute bottom-0 left-2 right-2 h-[2px] bg-transparent rounded-full transition-all duration-300";
+      ? "nav-indicator absolute bottom-0 left-2 right-2 h-[2px] rounded-full transition-[background-color,opacity] duration-200 bg-black"
+      : "nav-indicator absolute bottom-0 left-2 right-2 h-[2px] bg-transparent rounded-full transition-[background-color,opacity] duration-200";
   };
 
-  const staggerBase = 0.65;
-  const staggerStep = 0.06;
+  const staggerBase = 0.05;
+  const staggerStep = 0.04;
 
   return (
     <header className="relative z-40 w-full flex items-center justify-between px-4 sm:px-10 py-3.5 sm:py-5 border-b backdrop-blur-md transition-colors duration-500 rounded-none sm:rounded-t-[32px] bg-white/90 border-zinc-200/80" id="static-header">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.45, delay: staggerBase, ease: "linear" }}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: staggerBase, ease: [0.16, 1, 0.3, 1] }}
         className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gray-200 bg-white/80 shadow-sm text-xs font-semibold text-gray-800"
       >
         <span className="relative flex h-2 w-2">
@@ -45,31 +45,31 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium">
         <motion.button
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 1, ease: "linear" }}
+          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 1, ease: [0.16, 1, 0.3, 1] }}
           className={getTabClass(0)} onClick={() => goToHomeState(0)}>
           <span className="">Home</span>
           <span className={getIndicatorClass(0)}></span>
         </motion.button>
         <motion.button
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 2, ease: "linear" }}
+          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 2, ease: [0.16, 1, 0.3, 1] }}
           className={getTabClass(1)} onClick={() => goToSlide(1)}>
-          <span className="">Work <sup className="text-[10px] text-gray-400 font-mono">[13]</sup></span>
+          <span className="">Work <sup className="text-[10px] text-gray-400 font-mono"></sup></span>
           <span className={getIndicatorClass(1)}></span>
         </motion.button>
         <motion.button
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 3, ease: "linear" }}
+          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 3, ease: [0.16, 1, 0.3, 1] }}
           className={getTabClass(2)} onClick={() => goToSlide(2)}>
-          <span className="">Experience <sup className="text-[10px] text-gray-400 font-mono">[9y+]</sup></span>
+          <span className="">Experience <sup className="text-[10px] text-gray-400 font-mono"></sup></span>
           <span className={getIndicatorClass(2)}></span>
         </motion.button>
         <motion.button
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 4, ease: "linear" }}
+          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 4, ease: [0.16, 1, 0.3, 1] }}
           className={getTabClass(3)} onClick={() => goToSlide(3)}>
-          <span className="">Currently <sup className="text-[10px] text-gray-400 font-mono">[Now]</sup></span>
+          <span className="">Currently <sup className="text-[10px] text-gray-400 font-mono"></sup></span>
           <span className={getIndicatorClass(3)}></span>
         </motion.button>
         <motion.button
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 5, ease: "linear" }}
+          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 5, ease: [0.16, 1, 0.3, 1] }}
           className={getTabClass(4)} onClick={() => goToSlide(4)}>
           <span className="">Contact</span>
           <span className={getIndicatorClass(4)}></span>
@@ -78,7 +78,7 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
 
       {/* Right Actions: Let's Talk + Hamburger on Phone */}
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: staggerBase + staggerStep * 6, ease: "linear" }}
+        initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 6, ease: [0.16, 1, 0.3, 1] }}
         className="flex items-center gap-2 sm:gap-3">
         <button className="btn-shimmer flex items-center gap-2 px-3.5 sm:px-5 py-2 rounded-full bg-[#111113] hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm group" onClick={() => goToSlide(4)}>
           <span className="">Let's Talk</span>
@@ -119,9 +119,8 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
                 goToHomeState(0);
                 setIsMobileMenuOpen(false);
               }}
-              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
-                currentSlide === 0 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
-              }`}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${currentSlide === 0 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+                }`}
             >
               <span>Home</span>
               <span className={`text-[11px] font-mono ${currentSlide === 0 ? 'text-zinc-300' : 'text-zinc-400'}`}>01</span>
@@ -132,14 +131,10 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
                 goToSlide(1);
                 setIsMobileMenuOpen(false);
               }}
-              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
-                currentSlide === 1 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
-              }`}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${currentSlide === 1 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+                }`}
             >
-              <span className="flex items-center gap-1.5">
-                <span>Work</span>
-                <span className="text-[10px] font-mono opacity-70">[13]</span>
-              </span>
+              <span>Work</span>
               <span className={`text-[11px] font-mono ${currentSlide === 1 ? 'text-zinc-300' : 'text-zinc-400'}`}>02</span>
             </button>
 
@@ -148,14 +143,10 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
                 goToSlide(2);
                 setIsMobileMenuOpen(false);
               }}
-              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
-                currentSlide === 2 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
-              }`}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${currentSlide === 2 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+                }`}
             >
-              <span className="flex items-center gap-1.5">
-                <span>Experience</span>
-                <span className="text-[10px] font-mono opacity-70">[9y+]</span>
-              </span>
+              <span>Experience</span>
               <span className={`text-[11px] font-mono ${currentSlide === 2 ? 'text-zinc-300' : 'text-zinc-400'}`}>03</span>
             </button>
 
@@ -164,14 +155,10 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
                 goToSlide(3);
                 setIsMobileMenuOpen(false);
               }}
-              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
-                currentSlide === 3 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
-              }`}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${currentSlide === 3 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+                }`}
             >
-              <span className="flex items-center gap-1.5">
-                <span>Currently</span>
-                <span className="text-[10px] font-mono opacity-70">[Now]</span>
-              </span>
+              <span>Currently</span>
               <span className={`text-[11px] font-mono ${currentSlide === 3 ? 'text-zinc-300' : 'text-zinc-400'}`}>04</span>
             </button>
 
@@ -180,9 +167,8 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
                 goToSlide(4);
                 setIsMobileMenuOpen(false);
               }}
-              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
-                currentSlide === 4 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
-              }`}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${currentSlide === 4 ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100'
+                }`}
             >
               <span>Contact</span>
               <span className={`text-[11px] font-mono ${currentSlide === 4 ? 'text-zinc-300' : 'text-zinc-400'}`}>05</span>

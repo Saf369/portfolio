@@ -13,7 +13,7 @@
   --shadow-window: 0 30px 60px -15px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.12);
   --shadow-pill: 0 4px 14px 0 rgba(0, 0, 0, 0.05);
   --shadow-glow-green: 0 0 15px rgba(34, 197, 94, 0.55);
-  --shadow-floating-ui: 0 20px 40px -10px rgba(0,0,0,0.25);
+  --shadow-floating-ui: 0 20px 40px -10px rgba(0, 0, 0, 0.25);
 }
 
 /* Base document styling */
@@ -42,13 +42,22 @@ body.home-slider-mode {
 
 @media (min-width: 640px) {
   body.home-slider-mode {
-    padding: 1.5rem; /* sm:p-6 */
+    padding: 1.5rem;
+    /* sm:p-6 */
   }
 }
 
 @media (min-width: 1024px) {
   body.home-slider-mode {
-    padding: 2rem; /* lg:p-8 */
+    padding: 2rem;
+    /* lg:p-8 */
+  }
+}
+
+/* Ensure slide panels don't cause overflow on any device */
+@media (max-width: 639px) {
+  .slide-panel {
+    overflow-y: auto;
   }
 }
 
@@ -66,12 +75,13 @@ body.works-page-mode {
 .text-stroke-outline {
   color: transparent;
   -webkit-text-stroke: 2px #111113;
-  text-stroke: 2px #111113;
-  transition: all 0.4s ease;
+  transition: color 0.4s ease;
 }
+
 .text-stroke-outline:hover {
   color: #111113;
 }
+
 @media (max-width: 768px) {
   .text-stroke-outline {
     -webkit-text-stroke: 1.5px #111113;
@@ -86,6 +96,7 @@ body.works-page-mode {
   background: #ffffff;
   transition: background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 @media (max-width: 639px) {
   .window-card-container {
     border: none;
@@ -93,10 +104,12 @@ body.works-page-mode {
     box-shadow: none;
   }
 }
+
 .window-card-container.dark-theme-active {
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
+
 @media (max-width: 639px) {
   .window-card-container.dark-theme-active {
     border: none;
@@ -113,27 +126,33 @@ body.works-page-mode {
   height: 100%;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(100%) scale(0.97);
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(100%);
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease-out;
   will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
   z-index: 10;
 }
+
 .slide-panel.active-slide {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0%) scale(1);
+  transform: translateY(0%);
   z-index: 20;
 }
+
 .slide-panel.slide-above {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-100%) scale(0.97);
+  transform: translateY(-100%);
   z-index: 10;
 }
+
 .slide-panel.slide-below {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(100%) scale(0.97);
+  transform: translateY(100%);
   z-index: 10;
 }
 
@@ -143,25 +162,44 @@ body.works-page-mode {
   transform-origin: bottom center;
 }
 
-/* Static Portrait Size & Placement on Desktop */
-.portrait-stage-large,
-.portrait-stage-compact {
-  height: 410px;
-  transform: scale(1.0) translateY(-10px);
-  z-index: 30;
-  transition: none;
-}
-
-@media (max-width: 640px) {
+/* Fluid dynamic portrait scaling across all device ratios */
+@media (min-width: 768px) {
   .portrait-stage-large,
   .portrait-stage-compact {
-    height: 370px !important;
-    transform: scale(1.04) translateX(-10px) translateY(-28px) !important;
+    height: clamp(340px, min(48vh, 46vw), 480px);
+    max-width: clamp(320px, 36vw, 500px);
+    transform: translateY(0);
+    z-index: 30;
+    transition: none;
+  }
+}
+
+/* Fluid portrait on mobile (< 768px) — dynamically fills vertical space to occupy neatly */
+@media (max-width: 767px) {
+  .portrait-stage-large,
+  .portrait-stage-compact {
+    height: 100% !important;
+    max-height: 44dvh !important;
+    min-height: 140px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    transform: none !important;
     transform-origin: bottom center !important;
     transition: none !important;
+    margin: 0 auto !important;
   }
+
   .portrait-floating {
     animation: none !important;
+  }
+}
+
+/* Extra short viewports (landscape phones or short screens) */
+@media (max-height: 520px) {
+  .portrait-stage-large,
+  .portrait-stage-compact {
+    max-height: 32vh !important;
+    min-height: 100px !important;
   }
 }
 
@@ -170,6 +208,7 @@ body.works-page-mode {
   position: relative;
   overflow: hidden;
 }
+
 .btn-shimmer::before {
   content: '';
   position: absolute;
@@ -182,6 +221,7 @@ body.works-page-mode {
   transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
+
 .btn-shimmer:hover::before {
   transform: translateX(100%);
 }
@@ -190,6 +230,7 @@ body.works-page-mode {
   position: relative;
   overflow: hidden;
 }
+
 .btn-shimmer-light::before {
   content: '';
   position: absolute;
@@ -202,6 +243,7 @@ body.works-page-mode {
   transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
+
 .btn-shimmer-light:hover::before {
   transform: translateX(100%);
 }
@@ -210,6 +252,7 @@ body.works-page-mode {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -217,9 +260,17 @@ body.works-page-mode {
 
 /* Floating Card Tilt Animation */
 @keyframes floatPhonePreview {
-  0%, 100% { transform: rotate(5deg) translateY(0px); }
-  50% { transform: rotate(3.5deg) translateY(-5px); }
+
+  0%,
+  100% {
+    transform: rotate(5deg) translateY(0px);
+  }
+
+  50% {
+    transform: rotate(3.5deg) translateY(-5px);
+  }
 }
+
 .floating-mockup-animate {
   animation: floatPhonePreview 5s ease-in-out infinite;
 }
