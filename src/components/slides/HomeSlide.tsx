@@ -124,7 +124,7 @@ export default function HomeSlide({
             className="btn-shimmer inline-flex items-center gap-2 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-[#111113] hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-[transform,background-color,box-shadow] duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-xl group"
             onClick={() => goToSlide(4)}
           >
-            <span>Let's collaborate</span>
+            <span>Let&apos;s collaborate</span>
             <span className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1">
               ↗
             </span>

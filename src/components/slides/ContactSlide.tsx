@@ -59,7 +59,7 @@ export default function ContactSlide({ isActive, isAbove, isBelow }: ContactSlid
       >
         {/* Description */}
         <p className="relative z-10 text-gray-500 text-xs sm:text-base max-w-lg mt-3 sm:mt-4 leading-relaxed font-normal">
-          Together, we can create something clear and impactful. Let's collaborate to bring our ideas to
+          Together, we can create something clear and impactful. Let&apos;s collaborate to bring our ideas to
           life in a way that resonates with everyone.
         </p>
         {/* Interactive Scope Chips */}

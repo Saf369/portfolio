@@ -15,7 +15,7 @@ export default function Page() {
   const currentSlideRef = useRef(0);
   const heroStageRef = useRef(0);
 
-  const TRANSITION_DURATION = 260;
+  const TRANSITION_DURATION = 620;
   const totalSlides = 5;
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Page() {
       if (slideParam !== null) {
         const idx = parseInt(slideParam, 10);
         if (!isNaN(idx) && idx >= 0 && idx < totalSlides) {
-          setCurrentSlide(idx);
+          setTimeout(() => setCurrentSlide(idx), 0);
         }
       }
     }
@@ -150,11 +150,21 @@ export default function Page() {
     };
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        handleWheelTransition(25);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        handleWheelTransition(-25);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 

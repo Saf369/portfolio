@@ -81,7 +81,7 @@ export default function Header({ currentSlide, goToSlide, goToHomeState }: Heade
         initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: staggerBase + staggerStep * 6, ease: [0.16, 1, 0.3, 1] }}
         className="flex items-center gap-2 sm:gap-3">
         <button className="btn-shimmer flex items-center gap-2 px-3.5 sm:px-5 py-2 rounded-full bg-[#111113] hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm group" onClick={() => goToSlide(4)}>
-          <span className="">Let's Talk</span>
+          <span className="">Let&apos;s Talk</span>
           <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
         </button>
 

@@ -259,7 +259,7 @@ export default function ExperienceSlide({ isActive, isAbove, isBelow }: Experien
             transition={isActive ? { duration: 0.28, delay: 0.02, ease: [0.16, 1, 0.3, 1] } : { duration: 0.15 }}
             className="text-xs sm:text-sm font-light text-gray-300 pb-1"
           >
-            B.Tech IT '28
+            B.Tech IT &apos;28
           </motion.span>
         </div>
 
